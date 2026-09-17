@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tag-Tails Website Design</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Tag-Tails smart QR tags: when someone scans your pet's tag you get a text with the GPS location. Free tag, service £2.95/month.">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16181b; --ink-2:#4a4f57; --ink-3:#7a808a;
+  --bg:#fbf8f2; --bg-2:#f3eee3; --card:#ffffff; --line:#e7e1d4;
+  --blue:#70b8ff; --blue-deep:#0b6fd6; --amber:#dba41d; --amber-soft:#fff3d1;
+  --green:#6ca870; --green-soft:#e4f1e4;
+  --btn:#16181b; --btn-ink:#ffffff;
+  --media-blue:linear-gradient(160deg,#d9ecff,#b8dcff); --media-amber:linear-gradient(160deg,#fff1c8,#f6d88a); --coords:#0b6fd6;
+  --radius:22px; --shadow:0 18px 40px -22px rgba(22,24,27,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#f3f1ec; --ink-2:#c3c7ce; --ink-3:#8d939c;
+    --bg:#111315; --bg-2:#181b1e; --card:#1d2024; --line:#2c3035;
+    --blue-deep:#8ec7ff; --amber-soft:#2c2412; --green-soft:#1b2a1c;
+    --btn:#70b8ff; --btn-ink:#0c1117;
+    --media-blue:linear-gradient(160deg,#12263a,#173450); --media-amber:linear-gradient(160deg,#2a2210,#3a2e12);
+    --shadow:0 18px 40px -22px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+    --ink:#f3f1ec; --ink-2:#c3c7ce; --ink-3:#8d939c;
+    --bg:#111315; --bg-2:#181b1e; --card:#1d2024; --line:#2c3035;
+    --blue-deep:#8ec7ff; --amber-soft:#2c2412; --green-soft:#1b2a1c;
+    --btn:#70b8ff; --btn-ink:#0c1117;
+    --media-blue:linear-gradient(160deg,#12263a,#173450); --media-amber:linear-gradient(160deg,#2a2210,#3a2e12);
+    --shadow:0 18px 40px -22px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Outfit,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{line-height:1.08;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(2.5rem,6vw,4.4rem);font-weight:800}
+h2{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:800}
+h3{font-size:1.25rem;font-weight:700}
+p{margin:0}
+.lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--ink-2)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--blue-deep)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;background:var(--btn);color:var(--btn-ink);border:2px solid var(--btn);transition:transform .15s ease}
+.btn:hover{transform:translateY(-2px)}
+a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.amber{background:var(--amber);border-color:var(--amber);color:#16181b}
+.section{padding-block:clamp(64px,9vw,120px)}
+
+.preview-bar{background:var(--amber);color:#16181b;text-align:center;font-size:.85rem;font-weight:600;padding-block:7px;padding-inline:16px}
+/* Header */
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:28px;height:72px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:1.3rem}
+.brand img{width:44px;height:44px}
+.nav-links{display:flex;gap:26px;margin-left:12px}
+.nav-links a{text-decoration:none;font-weight:500;color:var(--ink-2)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+.nav-cta .signin{text-decoration:none;font-weight:600;padding:10px 14px}
+.nav-cta .btn{padding:10px 20px}
+.burger{display:none;margin-left:auto;background:none;border:0;padding:8px;color:var(--ink);cursor:pointer}
+.mobile-menu{display:none;border-top:1px solid var(--line);padding-block:12px 20px}
+.mobile-menu a{display:block;padding:12px 0;text-decoration:none;font-weight:600;font-size:1.1rem}
+.mobile-menu .btn{margin-top:10px;width:100%}
+@media (max-width:860px){
+  .nav-links,.nav-cta{display:none}
+  .burger{display:block}
+  header.open .mobile-menu{display:block}
+}
+
+/* Hero */
+.hero{padding-block:clamp(40px,6vw,80px) clamp(56px,8vw,100px)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:center}
+.hero h1 .hl{color:var(--blue-deep)}
+.hero .lead{margin-top:22px;max-width:520px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero-note{margin-top:18px;color:var(--ink-3);font-size:.95rem;display:flex;align-items:center;gap:8px}
+.hero-note b{color:var(--ink)}
+.hero-media{position:relative}
+.hero-photo{border-radius:32px;overflow:hidden;aspect-ratio:4/5;background:var(--bg-2);box-shadow:var(--shadow)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.float{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:center;max-width:260px}
+.float .ico{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center}
+.float small{display:block;color:var(--ink-3);font-size:.8rem}
+.float strong{font-size:.95rem}
+.float.f1{left:-28px;bottom:48px}
+.float.f2{right:-20px;top:36px}
+@media (max-width:860px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-media{max-width:460px;margin-inline:auto;width:100%}
+  .float.f1{left:-6px}.float.f2{right:-6px}
+}
+
+/* Trust strip */
+.strip{border-block:1px solid var(--line);background:var(--bg-2)}
+.strip-inner{display:flex;flex-wrap:wrap;justify-content:space-around;gap:18px 40px;padding-block:26px}
+.strip-item{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--ink-2)}
+
+/* Two parts */
+.center{text-align:center;max-width:720px;margin-inline:auto}
+.center .lead{margin-top:18px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:56px}
+.duo-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:34px;display:flex;flex-direction:column;gap:14px}
+.duo-card .ico{width:56px;height:56px;border-radius:16px;display:grid;place-items:center}
+.duo-card p{color:var(--ink-2)}
+.plus{display:none}
+@media (max-width:760px){.duo{grid-template-columns:1fr}}
+
+/* Alternating features */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,90px);align-items:center}
+.feature + .feature{margin-top:clamp(72px,10vw,130px)}
+.feature.rev .f-media{order:-1}
+.f-copy .lead{margin-top:18px}
+.f-copy ul{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.f-copy li{display:flex;gap:12px;align-items:flex-start;color:var(--ink-2)}
+.f-copy li svg{flex:none;margin-top:3px}
+.f-copy .btn{margin-top:30px}
+.f-media{border-radius:32px;min-height:420px;display:grid;place-items:center;padding:40px 24px;position:relative;overflow:hidden}
+.f-media.blue{background:var(--media-blue)}
+.f-media.amber{background:var(--media-amber)}
+.f-media.photo{padding:0}
+.f-media.photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+@media (max-width:860px){
+  .feature{grid-template-columns:1fr}
+  .feature.rev .f-media{order:0}
+  .f-media{min-height:340px}
+}
+
+/* Phone mockup */
+.phone{width:260px;max-width:100%;background:#16181b;border-radius:38px;padding:12px;box-shadow:0 30px 60px -25px rgba(0,0,0,.5)}
+.screen{background:#f4f5f7;border-radius:28px;padding:18px 14px 22px;min-height:400px;color:#16181b}
+.screen .bar{display:flex;justify-content:space-between;font-size:.72rem;font-weight:600;color:#555;padding:0 6px 14px}
+.sms-head{text-align:center;font-size:.78rem;color:#777;margin-bottom:12px}
+.bubble{background:#e5e7eb;border-radius:18px 18px 18px 6px;padding:11px 13px;font-size:.84rem;line-height:1.4;margin-bottom:10px}
+.bubble b{display:block;margin-bottom:2px}
+.map{height:120px;border-radius:14px;margin:4px 0 10px;background:
+  radial-gradient(circle at 58% 48%,#e5484d 0 7px,#fff 7px 10px,transparent 10px),
+  linear-gradient(90deg,transparent 46%,#fff 46% 50%,transparent 50%),
+  linear-gradient(0deg,transparent 58%,#fff 58% 63%,transparent 63%),
+  linear-gradient(35deg,transparent 30%,#fff 30% 33%,transparent 33%),
+  #cfe6cf}
+.coords{font-family:ui-monospace,Menlo,monospace;font-size:.74rem;color:var(--coords)}
+
+/* Profile mockup */
+.profile{width:300px;max-width:100%;background:#fff;color:#16181b;border-radius:26px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(0,0,0,.45)}
+.profile .cover{height:170px;background:url(img/orla-pose.jpg) center 30%/cover}
+.profile .body{padding:18px 20px 22px}
+.profile .name{display:flex;justify-content:space-between;align-items:center}
+.profile .tag{font-size:.72rem;font-weight:700;background:#e4f1e4;color:#3d7a42;padding:4px 10px;border-radius:999px}
+.profile .meta{color:#6b7078;font-size:.88rem;margin-top:2px}
+.profile .rows{margin-top:14px;display:grid;gap:8px}
+.profile .row{display:flex;gap:10px;font-size:.85rem;background:#f5f3ee;border-radius:12px;padding:9px 12px}
+.profile .call{margin-top:14px;background:#16181b;color:#fff;text-align:center;border-radius:999px;padding:11px;font-weight:700;font-size:.9rem}
+
+/* Grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:56px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:flex;flex-direction:column;gap:12px}
+.card .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center}
+.card p{color:var(--ink-2);font-size:.97rem}
+
+/* Pricing */
+.pricing{background:var(--bg-2)}
+.price-card{max-width:880px;margin:56px auto 0;display:grid;grid-template-columns:1fr 1fr;background:var(--card);border:1px solid var(--line);border-radius:32px;overflow:hidden;box-shadow:var(--shadow)}
+.price-side{padding:40px}
+.price-side + .price-side{border-left:1px solid var(--line)}
+.price-label{font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-size:.8rem}
+.price{font-size:3.4rem;font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.price small{font-size:1rem;font-weight:500;color:var(--ink-3)}
+.price-side ul{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:10px}
+.price-side li{display:flex;gap:10px;color:var(--ink-2)}
+.price-side .btn{margin-top:28px;width:100%}
+@media (max-width:760px){.price-card{grid-template-columns:1fr}.price-side + .price-side{border-left:0;border-top:1px solid var(--line)}}
+
+/* Reviews */
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:56px}
+.review{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:14px}
+.stars{color:var(--amber);letter-spacing:2px}
+.review p{color:var(--ink-2)}
+.review .who{margin-top:auto;display:flex;align-items:center;gap:12px;font-weight:700}
+.avatar{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#16181b}
+
+/* Mission + CTA */
+.mission{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,6vw,80px);align-items:center}
+.mission-photo{border-radius:32px;overflow:hidden;aspect-ratio:4/3}
+.mission-photo img{width:100%;height:100%;object-fit:cover}
+.mission .lead{margin-top:18px}
+@media (max-width:860px){.mission{grid-template-columns:1fr}}
+.cta{background:#16181b;color:#fff;border-radius:36px;padding:clamp(40px,7vw,80px);display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center;position:relative;overflow:hidden}
+.cta h2{color:#fff}
+.cta p{color:#c3c7ce;margin-top:14px;font-size:1.1rem}
+.cta .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}
+.cta .btn.ghost{color:#fff;border-color:#3a3f46}
+.cta .logo-big{position:absolute;right:-60px;bottom:-80px;width:260px;opacity:.12}
+@media (max-width:760px){.cta{grid-template-columns:1fr}.cta .actions{justify-content:flex-start}}
+
+/* Footer */
+footer{padding-block:64px 36px;border-top:1px solid var(--line);margin-top:clamp(64px,9vw,120px)}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.foot h4{margin:0 0 14px;font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3)}
+.foot a{display:block;text-decoration:none;color:var(--ink-2);padding:4px 0}
+.foot a:hover{color:var(--ink)}
+.foot .about{color:var(--ink-2);margin-top:14px;max-width:300px}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--line);color:var(--ink-3);font-size:.9rem}
+.lang{display:flex;align-items:center;gap:8px}
+.lang select{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+@media (max-width:760px){.foot{grid-template-columns:1fr 1fr}.foot > div:first-child{grid-column:1/-1}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="check" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#6ca870"/><path d="M6 10.4l2.6 2.6L14.2 7.4" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="preview-bar">Design preview for Tag-Tails · not the live website</div>
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="img/logo.svg" alt="">Tag-Tails</a>
+    <nav class="nav-links">
+      <a href="#features" data-i18n="nav.features"></a>
+      <a href="#pricing" data-i18n="nav.pricing"></a>
+      <a href="#reviews" data-i18n="nav.reviews"></a>
+      <a href="#mission" data-i18n="nav.about"></a>
+    </nav>
+    <div class="nav-cta">
+      <a class="signin" href="https://tag-tails.co.uk/auth/sign-in" data-i18n="nav.signin"></a>
+      <a class="btn" href="https://tag-tails.co.uk/product/tag" data-i18n="cta.free"></a>
+    </div>
+    <button class="burger" aria-label="Menu" onclick="document.getElementById('top').classList.toggle('open')">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div class="wrap mobile-menu" onclick="if(event.target.tagName==='A')document.getElementById('top').classList.remove('open')">
+    <a href="#features" data-i18n="nav.features"></a>
+    <a href="#pricing" data-i18n="nav.pricing"></a>
+    <a href="#reviews" data-i18n="nav.reviews"></a>
+    <a href="#mission" data-i18n="nav.about"></a>
+    <a href="https://tag-tails.co.uk/auth/sign-in" data-i18n="nav.signin"></a>
+    <a class="btn" href="https://tag-tails.co.uk/product/tag" data-i18n="cta.free"></a>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow" data-i18n="hero.eyebrow"></span>
+        <h1 style="margin-top:14px" data-i18n-html="hero.title"></h1>
+        <p class="lead" data-i18n="hero.lead"></p>
+        <div class="hero-actions">
+          <a class="btn" href="https://tag-tails.co.uk/product/tag" data-i18n="cta.free"></a>
+          <a class="btn ghost" href="#how" data-i18n="cta.how"></a>
+        </div>
+        <p class="hero-note"><svg width="18" height="18"><use href="#check"/></svg><span data-i18n-html="hero.note"></span></p>
+      </div>
+      <div class="hero-media">
+        <div class="hero-photo"><img src="img/orla-pose.jpg" alt="" data-i18n-alt="hero.alt"></div>
+        <div class="float f1">
+          <div class="ico" style="background:var(--green-soft)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6ca870" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div>
+          <div><small data-i18n="hero.float1a"></small><strong data-i18n="hero.float1b"></strong></div>
+        </div>
+        <div class="float f2">
+          <div class="ico" style="background:var(--amber-soft)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#dba41d" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h1M18 14h2"/></svg></div>
+          <div><small data-i18n="hero.float2a"></small><strong data-i18n="hero.float2b"></strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <div class="strip">
+    <div class="wrap strip-inner">
+      <div class="strip-item"><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="strip.1"></span></div>
+      <div class="strip-item"><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="strip.2"></span></div>
+      <div class="strip-item"><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="strip.3"></span></div>
+      <div class="strip-item"><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="strip.4"></span></div>
+    </div>
+  </div>
+
+  <!-- How it works: tag + service -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="center">
+        <span class="eyebrow" data-i18n="how.eyebrow"></span>
+        <h2 style="margin-top:12px" data-i18n="how.title"></h2>
+        <p class="lead" data-i18n="how.lead"></p>
+      </div>
+      <div class="duo">
+        <div class="duo-card">
+          <div class="ico" style="background:#16181b"><img src="img/logo.svg" alt="" width="40" height="40"></div>
+          <h3 data-i18n="how.tagT"></h3>
+          <p data-i18n="how.tagP"></p>
+        </div>
+        <div class="duo-card">
+          <div class="ico" style="background:var(--amber-soft)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#dba41d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg></div>
+          <h3 data-i18n="how.svcT"></h3>
+          <p data-i18n="how.svcP"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature showcase -->
+  <section class="section" id="features" style="padding-top:0">
+    <div class="wrap">
+      <div class="feature">
+        <div class="f-copy">
+          <span class="eyebrow" data-i18n="f1.eyebrow"></span>
+          <h2 style="margin-top:12px" data-i18n="f1.title"></h2>
+          <p class="lead" data-i18n="f1.lead"></p>
+          <ul>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="f1.b1"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="f1.b2"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="f1.b3"></span></li>
+          </ul>
+        </div>
+        <div class="f-media blue">
+          <div class="phone"><div class="screen">
+            <div class="bar"><span>9:41</span><span>●●● 5G</span></div>
+            <div class="sms-head">Tag-Tails</div>
+            <div class="bubble"><b data-i18n="mock.smsT"></b><span data-i18n="mock.smsP"></span></div>
+            <div class="map"></div>
+            <div class="bubble"><span data-i18n="mock.smsLoc"></span><br><span class="coords">51.5072° N, 0.1276° W</span></div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="feature rev">
+        <div class="f-copy">
+          <span class="eyebrow" data-i18n="f2.eyebrow"></span>
+          <h2 style="margin-top:12px" data-i18n="f2.title"></h2>
+          <p class="lead" data-i18n="f2.lead"></p>
+          <ul>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="f2.b1"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="f2.b2"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="f2.b3"></span></li>
+          </ul>
+        </div>
+        <div class="f-media amber">
+          <div class="profile">
+            <div class="cover"></div>
+            <div class="body">
+              <div class="name"><h3>Orla</h3><span class="tag" data-i18n="mock.safe"></span></div>
+              <div class="meta" data-i18n="mock.meta"></div>
+              <div class="rows">
+                <div class="row">🍗 <span data-i18n="mock.row1"></span></div>
+                <div class="row">💊 <span data-i18n="mock.row2"></span></div>
+                <div class="row">🐾 <span data-i18n="mock.row3"></span></div>
+              </div>
+              <div class="call" data-i18n="mock.call"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="f-copy">
+          <span class="eyebrow" data-i18n="f3.eyebrow"></span>
+          <h2 style="margin-top:12px" data-i18n="f3.title"></h2>
+          <p class="lead" data-i18n="f3.lead"></p>
+          <a class="btn" href="https://tag-tails.co.uk/product/tag" data-i18n="cta.free"></a>
+        </div>
+        <div class="f-media photo"><img src="img/tags-on-wood.webp" alt="" data-i18n-alt="f3.alt"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature grid -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="center">
+        <span class="eyebrow" data-i18n="grid.eyebrow"></span>
+        <h2 style="margin-top:12px" data-i18n="grid.title"></h2>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="ico" style="background:#dbeeff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b6fd6" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c3 0 6 1.8 6 5.5"/></svg></div><h3 data-i18n="grid.1t"></h3><p data-i18n="grid.1p"></p></div>
+        <div class="card"><div class="ico" style="background:var(--amber-soft)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dba41d" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></div><h3 data-i18n="grid.2t"></h3><p data-i18n="grid.2p"></p></div>
+        <div class="card"><div class="ico" style="background:var(--green-soft)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6ca870" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.5s-8-4.6-8-10.4A4.6 4.6 0 0 1 12 7a4.6 4.6 0 0 1 8 3.1c0 5.8-8 10.4-8 10.4z"/></svg></div><h3 data-i18n="grid.3t"></h3><p data-i18n="grid.3p"></p></div>
+        <div class="card"><div class="ico" style="background:#dbeeff"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0b6fd6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg></div><h3 data-i18n="grid.4t"></h3><p data-i18n="grid.4p"></p></div>
+        <div class="card"><div class="ico" style="background:var(--amber-soft)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dba41d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3 data-i18n="grid.5t"></h3><p data-i18n="grid.5p"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section pricing" id="pricing">
+    <div class="wrap">
+      <div class="center">
+        <span class="eyebrow" data-i18n="price.eyebrow"></span>
+        <h2 style="margin-top:12px" data-i18n="price.title"></h2>
+        <p class="lead" data-i18n="price.lead"></p>
+      </div>
+      <div class="price-card">
+        <div class="price-side">
+          <div class="price-label" data-i18n="price.tagL"></div>
+          <div class="price">£0</div>
+          <ul>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="price.t1"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="price.t2"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="price.t3"></span></li>
+          </ul>
+        </div>
+        <div class="price-side">
+          <div class="price-label" data-i18n="price.svcL"></div>
+          <div class="price">£2.95<small data-i18n="price.month"></small></div>
+          <ul>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="price.s1"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="price.s2"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="price.s3"></span></li>
+            <li><svg width="20" height="20"><use href="#check"/></svg><span data-i18n="price.s4"></span></li>
+          </ul>
+          <a class="btn amber" href="https://tag-tails.co.uk/product/tag" data-i18n="cta.free"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section" id="reviews">
+    <div class="wrap">
+      <div class="center">
+        <span class="eyebrow" data-i18n="rev.eyebrow"></span>
+        <h2 style="margin-top:12px" data-i18n="rev.title"></h2>
+      </div>
+      <div class="reviews">
+        <div class="review"><div class="stars">★★★★★</div><h3 data-i18n="rev.1t"></h3><p data-i18n="rev.1p"></p><div class="who"><span class="avatar" style="background:var(--blue)">S</span>Sarah M.</div></div>
+        <div class="review"><div class="stars">★★★★★</div><h3 data-i18n="rev.2t"></h3><p data-i18n="rev.2p"></p><div class="who"><span class="avatar" style="background:var(--amber)">M</span>Mike J.</div></div>
+        <div class="review"><div class="stars">★★★★★</div><h3 data-i18n="rev.3t"></h3><p data-i18n="rev.3p"></p><div class="who"><span class="avatar" style="background:var(--green)">E</span>Emma L.</div></div>
+        <div class="review"><div class="stars">★★★★★</div><h3 data-i18n="rev.4t"></h3><p data-i18n="rev.4p"></p><div class="who"><span class="avatar" style="background:var(--blue)">D</span>David R.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="section" id="mission" style="padding-top:0">
+    <div class="wrap mission">
+      <div class="mission-photo"><img src="img/tags-on-wood.webp" alt="" data-i18n-alt="f3.alt"></div>
+      <div>
+        <span class="eyebrow" data-i18n="mission.eyebrow"></span>
+        <h2 style="margin-top:12px" data-i18n="mission.title"></h2>
+        <p class="lead" data-i18n="mission.p"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap">
+    <div class="cta">
+      <div>
+        <h2 data-i18n="final.title"></h2>
+        <p data-i18n="final.p"></p>
+      </div>
+      <div class="actions">
+        <a class="btn amber" href="https://tag-tails.co.uk/product/tag" data-i18n="cta.free"></a>
+        <a class="btn ghost" href="https://tag-tails.co.uk/auth/sign-in" data-i18n="nav.signin"></a>
+      </div>
+      <img class="logo-big" src="img/logo.svg" alt="">
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" style="padding:0"><img src="img/logo.svg" alt="">Tag-Tails</a>
+        <p class="about" data-i18n="foot.about"></p>
+      </div>
+      <div>
+        <h4 data-i18n="foot.product"></h4>
+        <a href="#features" data-i18n="nav.features"></a>
+        <a href="#pricing" data-i18n="nav.pricing"></a>
+        <a href="https://tag-tails.co.uk/product/tag" data-i18n="cta.free"></a>
+      </div>
+      <div>
+        <h4 data-i18n="foot.company"></h4>
+        <a href="#mission" data-i18n="nav.about"></a>
+        <a href="#reviews" data-i18n="nav.reviews"></a>
+        <a href="https://tag-tails.co.uk/auth/sign-in" data-i18n="nav.signin"></a>
+      </div>
+      <div>
+        <h4 data-i18n="foot.legal"></h4>
+        <a href="https://tag-tails.co.uk/terms" data-i18n="foot.terms"></a>
+        <a href="https://tag-tails.co.uk/privacy" data-i18n="foot.privacy"></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Tag-Tails</span>
+      <label class="lang">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+        <select id="langSel" aria-label="Language"></select>
+      </label>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+"en-GB": { _name:"English (UK)",
+  "nav.features":"Features","nav.pricing":"Pricing","nav.reviews":"Reviews","nav.about":"About us","nav.signin":"Sign in",
+  "cta.free":"Get your free tag","cta.how":"How it works",
+  "hero.eyebrow":"Smart QR pet tags",
+  "hero.title":"If they wander off, <span class=\"hl\">you’ll know where</span>.",
+  "hero.lead":"Whoever finds your pet scans the Tag-Tails tag with their phone camera. They see your pet’s profile, and you get a text with the exact spot they were found.",
+  "hero.note":"Tag is <b>free</b> · service just <b>£2.95 a month</b>",
+  "hero.alt":"Orla the dog wearing her Tag-Tails tag",
+  "hero.float1a":"Tag scanned just now","hero.float1b":"Location sent to your phone",
+  "hero.float2a":"No app needed","hero.float2b":"Any phone camera works",
+  "strip.1":"Strength-tested tags","strip.2":"Set up in under 60 seconds","strip.3":"Unlimited pet profiles","strip.4":"Friendly UK support",
+  "how.eyebrow":"How it works","how.title":"A tough little tag, backed by a smart service",
+  "how.lead":"Clip it on once and it quietly works in the background, ready for the day someone needs to get your pet home.",
+  "how.tagT":"The tag","how.tagP":"A durable QR tag that sits on the collar. No battery, no charging, nothing to pair — it just needs a phone camera to scan it.",
+  "how.svcT":"The service","how.svcP":"Your pet’s online profile plus instant text alerts with GPS coordinates whenever the tag is scanned, so you can head straight there.",
+  "f1.eyebrow":"Instant location alerts","f1.title":"Scanned in the park, on your phone in seconds",
+  "f1.lead":"The moment somebody scans the tag, we send you a text message with the GPS coordinates of where it happened.",
+  "f1.b1":"Real-time texts — no app to open","f1.b2":"Coordinates you can drop straight into maps","f1.b3":"The finder can contact you right from the profile",
+  "f2.eyebrow":"Pet profiles","f2.title":"Everything a finder needs to help",
+  "f2.lead":"Build a profile that shows off your pet’s personality and gives whoever finds them the right information to keep them safe.",
+  "f2.b1":"Photos, notes and custom care instructions","f2.b2":"Unlimited profiles for every pet in the house","f2.b3":"Update details any time, from anywhere",
+  "f3.eyebrow":"Built to last","f3.title":"Tags that keep up with muddy adventures",
+  "f3.lead":"Every Tag-Tails tag is strength tested and guaranteed to last. And if your pet has a habit of losing collars, our replacement tag programme has you covered.",
+  "f3.alt":"Tag-Tails smart tags on a wooden table",
+  "grid.eyebrow":"Included with your plan","grid.title":"Small tag, lots of peace of mind",
+  "grid.1t":"Unlimited profiles","grid.1p":"All your pets in one secure place — no limits and no extra charges.",
+  "grid.2t":"60-second setup","grid.2p":"Scan, click, done. Your pet’s full profile is live in under a minute.",
+  "grid.3t":"Personalisation","grid.3p":"Photos, notes and care instructions that make your pet’s profile unmistakably theirs.",
+  "grid.4t":"Replacement tags","grid.4p":"Lost collar on a walk? Our replacement tag programme gets a new tag on quickly.",
+  "grid.5t":"Privacy first","grid.5p":"You decide what appears on the profile. Your details stay protected.",
+  "price.eyebrow":"Pricing","price.title":"Simple pricing, less than a coffee",
+  "price.lead":"Get the tag for free and keep the alerts and profile running for a small monthly fee.",
+  "price.tagL":"Smart tag","price.t1":"Durable, strength-tested QR tag","price.t2":"Fast delivery","price.t3":"A personalised note for your pet",
+  "price.svcL":"Tag-Tails service","price.month":" / month",
+  "price.s1":"Instant text alerts with GPS location","price.s2":"Unlimited pet profiles","price.s3":"Replacement tag programme","price.s4":"Friendly support team",
+  "rev.eyebrow":"Reviews","rev.title":"What our users say",
+  "rev.1t":"Peace of mind achieved","rev.1p":"“Just moved house and my cat keeps sneaking out to explore. Having the Tag-Tails smart tag on her collar means I know if she gets out, she has a good chance of making it back home safely. It’s incredibly reassuring.”",
+  "rev.2t":"Simple setup, great value","rev.2p":"“The activation process was super straightforward, and at £2.95 a month, it’s less than a cup of coffee. The replacement tag program is a lifesaver since my dog is always losing his collar on walks.”",
+  "rev.3t":"Fantastic customer service","rev.3p":"“Had a small hiccup during setup, but the Tag-Tails support team was incredibly friendly and helpful in getting it resolved quickly. My pup is now fully protected and I feel much more secure.”",
+  "rev.4t":"Quick, cute and effective","rev.4p":"“Fast delivery and a lovely little personalised note for my pet made the experience delightful. It’s a brilliant idea that gives me that extra layer of security without any fuss.”",
+  "mission.eyebrow":"Our mission","mission.title":"Getting lost pets home, faster",
+  "mission.p":"At Tag-Tails, we are dedicated to reuniting lost pets with their owners through smart tags featuring QR technology. Our goal is peace of mind: pets that are quickly identifiable and traceable, with safety, reliability and ease for pet owners everywhere.",
+  "final.title":"Give your pet a way back home","final.p":"Your free tag is one click away. Setup takes less than a minute.",
+  "foot.about":"Smart QR tags that help reunite lost pets with the people who love them.",
+  "foot.product":"Product","foot.company":"Company","foot.legal":"Legal","foot.terms":"Terms & Conditions","foot.privacy":"Privacy Policy",
+  "mock.smsT":"Orla’s tag was scanned!","mock.smsP":"Someone has just found Orla and viewed her profile.","mock.smsLoc":"Scan location:",
+  "mock.safe":"Protected","mock.meta":"Cocker Spaniel · 3 years","mock.row1":"Grain-free food only","mock.row2":"Allergy tablet each morning","mock.row3":"Friendly, a bit shy with men","mock.call":"Contact owner"
+},
+"es": { _name:"Español",
+  "nav.features":"Funciones","nav.pricing":"Precios","nav.reviews":"Opiniones","nav.about":"Quiénes somos","nav.signin":"Iniciar sesión",
+  "cta.free":"Consigue tu placa gratis","cta.how":"Cómo funciona",
+  "hero.eyebrow":"Placas QR inteligentes para mascotas",
+  "hero.title":"Si se escapa, <span class=\"hl\">sabrás dónde está</span>.",
+  "hero.lead":"Quien encuentre a tu mascota escanea la placa Tag-Tails con la cámara del móvil. Ve su perfil y tú recibes un SMS con el lugar exacto donde la han encontrado.",
+  "hero.note":"Placa <b>gratis</b> · servicio por solo <b>2,95 £ al mes</b>",
+  "hero.alt":"Orla, la perra, con su placa Tag-Tails",
+  "hero.float1a":"Placa escaneada ahora mismo","hero.float1b":"Ubicación enviada a tu móvil",
+  "hero.float2a":"Sin descargar apps","hero.float2b":"Vale cualquier cámara de móvil",
+  "strip.1":"Placas probadas en resistencia","strip.2":"Lista en menos de 60 segundos","strip.3":"Perfiles de mascota ilimitados","strip.4":"Soporte cercano en Reino Unido",
+  "how.eyebrow":"Cómo funciona","how.title":"Una placa resistente con un servicio inteligente detrás",
+  "how.lead":"La pones una vez y trabaja en silencio, lista para el día en que alguien tenga que devolver a tu mascota a casa.",
+  "how.tagT":"La placa","how.tagP":"Una placa QR duradera que va en el collar. Sin batería, sin cargas y sin emparejar nada: basta con la cámara de un móvil.",
+  "how.svcT":"El servicio","how.svcP":"El perfil online de tu mascota y avisos instantáneos por SMS con coordenadas GPS cada vez que se escanea la placa, para que vayas directo.",
+  "f1.eyebrow":"Avisos de ubicación al instante","f1.title":"Escaneada en el parque, en tu móvil en segundos",
+  "f1.lead":"En cuanto alguien escanea la placa, te enviamos un SMS con las coordenadas GPS del lugar.",
+  "f1.b1":"SMS en tiempo real, sin abrir ninguna app","f1.b2":"Coordenadas que puedes abrir directamente en mapas","f1.b3":"Quien la encuentra puede contactarte desde el perfil",
+  "f2.eyebrow":"Perfiles de mascota","f2.title":"Todo lo que necesita quien la encuentre",
+  "f2.lead":"Crea un perfil que refleje la personalidad de tu mascota y dé a quien la encuentre la información adecuada para cuidarla.",
+  "f2.b1":"Fotos, notas e instrucciones de cuidado","f2.b2":"Perfiles ilimitados para todas tus mascotas","f2.b3":"Actualiza los datos cuando quieras, desde donde quieras",
+  "f3.eyebrow":"Hechas para durar","f3.title":"Placas a la altura de las aventuras con barro",
+  "f3.lead":"Todas las placas Tag-Tails pasan pruebas de resistencia y tienen garantía de durabilidad. Y si tu mascota suele perder el collar, nuestro programa de reposición te cubre.",
+  "f3.alt":"Placas inteligentes Tag-Tails sobre una mesa de madera",
+  "grid.eyebrow":"Incluido en tu plan","grid.title":"Una placa pequeña, mucha tranquilidad",
+  "grid.1t":"Perfiles ilimitados","grid.1p":"Todas tus mascotas en un lugar seguro, sin límites ni cargos extra.",
+  "grid.2t":"Configuración en 60 segundos","grid.2p":"Escanea, pulsa y listo. El perfil completo está activo en menos de un minuto.",
+  "grid.3t":"Personalización","grid.3p":"Fotos, notas e instrucciones de cuidado que hacen el perfil inconfundible.",
+  "grid.4t":"Placas de reposición","grid.4p":"¿Perdió el collar en un paseo? Nuestro programa de reposición te envía otra placa rápido.",
+  "grid.5t":"Privacidad ante todo","grid.5p":"Tú decides qué aparece en el perfil. Tus datos, protegidos.",
+  "price.eyebrow":"Precios","price.title":"Precio sencillo, menos que un café",
+  "price.lead":"Llévate la placa gratis y mantén los avisos y el perfil activos por una pequeña cuota mensual.",
+  "price.tagL":"Placa inteligente","price.t1":"Placa QR duradera y probada en resistencia","price.t2":"Envío rápido","price.t3":"Una nota personalizada para tu mascota",
+  "price.svcL":"Servicio Tag-Tails","price.month":" / mes",
+  "price.s1":"Avisos por SMS con ubicación GPS","price.s2":"Perfiles de mascota ilimitados","price.s3":"Programa de placas de reposición","price.s4":"Equipo de soporte cercano",
+  "rev.eyebrow":"Opiniones","rev.title":"Lo que dicen nuestros usuarios",
+  "rev.1t":"Por fin, tranquilidad","rev.1p":"«Acabo de mudarme y mi gata no para de escaparse a explorar. Con la placa Tag-Tails en el collar sé que, si sale, tiene muchas opciones de volver a casa sana y salva. Me da muchísima tranquilidad.»",
+  "rev.2t":"Fácil y buena relación calidad-precio","rev.2p":"«La activación fue facilísima y, a 2,95 £ al mes, cuesta menos que un café. El programa de reposición es una maravilla, porque mi perro pierde el collar en cada paseo.»",
+  "rev.3t":"Atención al cliente fantástica","rev.3p":"«Tuve un pequeño problema al configurarla, pero el equipo de soporte de Tag-Tails fue amabilísimo y lo resolvió enseguida. Mi perrito ya está protegido y me siento mucho más segura.»",
+  "rev.4t":"Rápida, bonita y eficaz","rev.4p":"«Envío rápido y una notita personalizada para mi mascota que me encantó. Es una idea genial que da una capa extra de seguridad sin complicaciones.»",
+  "mission.eyebrow":"Nuestra misión","mission.title":"Devolver antes a casa a las mascotas perdidas",
+  "mission.p":"En Tag-Tails nos dedicamos a reunir a las mascotas perdidas con sus dueños mediante placas inteligentes con tecnología QR. Nuestro objetivo es la tranquilidad: mascotas fáciles de identificar y localizar, con seguridad, fiabilidad y comodidad para sus dueños estén donde estén.",
+  "final.title":"Dale a tu mascota un camino de vuelta a casa","final.p":"Tu placa gratis está a un clic. La configuración lleva menos de un minuto.",
+  "foot.about":"Placas QR inteligentes que ayudan a reunir a las mascotas perdidas con quienes las quieren.",
+  "foot.product":"Producto","foot.company":"Empresa","foot.legal":"Legal","foot.terms":"Términos y condiciones","foot.privacy":"Política de privacidad",
+  "mock.smsT":"¡Han escaneado la placa de Orla!","mock.smsP":"Alguien acaba de encontrar a Orla y ha visto su perfil.","mock.smsLoc":"Lugar del escaneo:",
+  "mock.safe":"Protegida","mock.meta":"Cocker spaniel · 3 años","mock.row1":"Solo pienso sin cereales","mock.row2":"Pastilla de alergia cada mañana","mock.row3":"Cariñosa, algo tímida con hombres","mock.call":"Contactar con el dueño"
+},
+"fr": { _name:"Français",
+  "nav.features":"Fonctionnalités","nav.pricing":"Tarifs","nav.reviews":"Avis","nav.about":"À propos","nav.signin":"Se connecter",
+  "cta.free":"Obtenir ma médaille gratuite","cta.how":"Comment ça marche",
+  "hero.eyebrow":"Médailles QR intelligentes pour animaux",
+  "hero.title":"S’il s’éloigne, <span class=\"hl\">vous saurez où</span>.",
+  "hero.lead":"La personne qui trouve votre animal scanne la médaille Tag-Tails avec l’appareil photo de son téléphone. Elle voit son profil, et vous recevez un SMS avec l’endroit exact où il a été trouvé.",
+  "hero.note":"Médaille <b>gratuite</b> · service à seulement <b>2,95 £ par mois</b>",
+  "hero.alt":"Orla, la chienne, avec sa médaille Tag-Tails",
+  "hero.float1a":"Médaille scannée à l’instant","hero.float1b":"Position envoyée sur votre téléphone",
+  "hero.float2a":"Aucune appli requise","hero.float2b":"N’importe quel appareil photo suffit",
+  "strip.1":"Médailles testées en résistance","strip.2":"Prête en moins de 60 secondes","strip.3":"Profils illimités","strip.4":"Support attentionné au Royaume-Uni",
+  "how.eyebrow":"Comment ça marche","how.title":"Une petite médaille robuste, un service intelligent",
+  "how.lead":"Vous l’accrochez une fois et elle veille discrètement, prête pour le jour où quelqu’un devra ramener votre animal.",
+  "how.tagT":"La médaille","how.tagP":"Une médaille QR durable fixée au collier. Pas de batterie, pas de recharge, rien à appairer : un appareil photo de téléphone suffit.",
+  "how.svcT":"Le service","how.svcP":"Le profil en ligne de votre animal et des alertes SMS instantanées avec coordonnées GPS à chaque scan, pour y aller directement.",
+  "f1.eyebrow":"Alertes de position instantanées","f1.title":"Scannée au parc, sur votre téléphone en quelques secondes",
+  "f1.lead":"Dès que quelqu’un scanne la médaille, nous vous envoyons un SMS avec les coordonnées GPS du lieu.",
+  "f1.b1":"SMS en temps réel, sans appli à ouvrir","f1.b2":"Des coordonnées à ouvrir directement dans vos cartes","f1.b3":"La personne peut vous contacter depuis le profil",
+  "f2.eyebrow":"Profils d’animaux","f2.title":"Tout ce dont la personne a besoin pour aider",
+  "f2.lead":"Créez un profil qui montre la personnalité de votre animal et donne les bonnes informations pour sa sécurité.",
+  "f2.b1":"Photos, notes et consignes de soin","f2.b2":"Profils illimités pour tous vos animaux","f2.b3":"Mettez à jour à tout moment, où que vous soyez",
+  "f3.eyebrow":"Faites pour durer","f3.title":"Des médailles qui suivent toutes les aventures",
+  "f3.lead":"Chaque médaille Tag-Tails est testée en résistance et garantie durable. Et si votre animal perd souvent son collier, notre programme de remplacement est là.",
+  "f3.alt":"Médailles intelligentes Tag-Tails sur une table en bois",
+  "grid.eyebrow":"Inclus dans votre formule","grid.title":"Petite médaille, grande tranquillité",
+  "grid.1t":"Profils illimités","grid.1p":"Tous vos animaux au même endroit sécurisé, sans limite ni frais supplémentaires.",
+  "grid.2t":"Configuration en 60 secondes","grid.2p":"Scannez, cliquez, c’est prêt. Le profil complet est en ligne en moins d’une minute.",
+  "grid.3t":"Personnalisation","grid.3p":"Photos, notes et consignes qui rendent le profil unique.",
+  "grid.4t":"Médailles de remplacement","grid.4p":"Collier perdu en promenade ? Notre programme vous renvoie vite une médaille.",
+  "grid.5t":"Confidentialité avant tout","grid.5p":"Vous choisissez ce qui s’affiche sur le profil. Vos données restent protégées.",
+  "price.eyebrow":"Tarifs","price.title":"Un tarif simple, moins cher qu’un café",
+  "price.lead":"La médaille est offerte ; les alertes et le profil restent actifs pour un petit abonnement mensuel.",
+  "price.tagL":"Médaille intelligente","price.t1":"Médaille QR durable et testée","price.t2":"Livraison rapide","price.t3":"Un petit mot personnalisé pour votre animal",
+  "price.svcL":"Service Tag-Tails","price.month":" / mois",
+  "price.s1":"Alertes SMS avec position GPS","price.s2":"Profils illimités","price.s3":"Programme de remplacement","price.s4":"Équipe de support attentionnée",
+  "rev.eyebrow":"Avis","rev.title":"Ce qu’en disent nos utilisateurs",
+  "rev.1t":"Enfin l’esprit tranquille","rev.1p":"« Je viens de déménager et ma chatte s’échappe sans arrêt pour explorer. Avec la médaille Tag-Tails sur son collier, je sais que si elle sort, elle a de bonnes chances de rentrer saine et sauve. C’est vraiment rassurant. »",
+  "rev.2t":"Simple et avantageux","rev.2p":"« L’activation a été très simple et, à 2,95 £ par mois, c’est moins cher qu’un café. Le programme de remplacement est génial, mon chien perd son collier à chaque promenade. »",
+  "rev.3t":"Un service client formidable","rev.3p":"« J’ai eu un petit souci à la configuration, mais l’équipe Tag-Tails a été adorable et l’a réglé très vite. Mon chiot est protégé et je me sens beaucoup plus sereine. »",
+  "rev.4t":"Rapide, mignon et efficace","rev.4p":"« Livraison rapide et un joli petit mot personnalisé pour mon animal. Une idée brillante qui apporte une sécurité en plus, sans prise de tête. »",
+  "mission.eyebrow":"Notre mission","mission.title":"Ramener plus vite les animaux perdus",
+  "mission.p":"Chez Tag-Tails, nous réunissons les animaux perdus et leurs propriétaires grâce à des médailles intelligentes à technologie QR. Notre objectif : la tranquillité d’esprit, avec des animaux vite identifiables et localisables, en toute sécurité, fiabilité et simplicité.",
+  "final.title":"Offrez à votre animal le chemin du retour","final.p":"Votre médaille gratuite est à un clic. La configuration prend moins d’une minute.",
+  "foot.about":"Des médailles QR intelligentes qui aident les animaux perdus à retrouver ceux qui les aiment.",
+  "foot.product":"Produit","foot.company":"Entreprise","foot.legal":"Mentions légales","foot.terms":"Conditions générales","foot.privacy":"Politique de confidentialité",
+  "mock.smsT":"La médaille d’Orla a été scannée !","mock.smsP":"Quelqu’un vient de trouver Orla et a consulté son profil.","mock.smsLoc":"Lieu du scan :",
+  "mock.safe":"Protégée","mock.meta":"Cocker spaniel · 3 ans","mock.row1":"Croquettes sans céréales uniquement","mock.row2":"Comprimé anti-allergie le matin","mock.row3":"Gentille, un peu timide avec les hommes","mock.call":"Contacter le propriétaire"
+},
+"de": { _name:"Deutsch",
+  "nav.features":"Funktionen","nav.pricing":"Preise","nav.reviews":"Bewertungen","nav.about":"Über uns","nav.signin":"Anmelden",
+  "cta.free":"Gratis-Anhänger sichern","cta.how":"So funktioniert’s",
+  "hero.eyebrow":"Smarte QR-Anhänger für Haustiere",
+  "hero.title":"Wenn es wegläuft, <span class=\"hl\">weißt du, wo es ist</span>.",
+  "hero.lead":"Wer dein Haustier findet, scannt den Tag-Tails-Anhänger mit der Handykamera. Er sieht das Profil – und du bekommst eine SMS mit dem genauen Fundort.",
+  "hero.note":"Anhänger <b>gratis</b> · Service nur <b>2,95 £ im Monat</b>",
+  "hero.alt":"Hündin Orla mit ihrem Tag-Tails-Anhänger",
+  "hero.float1a":"Anhänger gerade gescannt","hero.float1b":"Standort an dein Handy gesendet",
+  "hero.float2a":"Keine App nötig","hero.float2b":"Jede Handykamera funktioniert",
+  "strip.1":"Belastungsgetestete Anhänger","strip.2":"In unter 60 Sekunden eingerichtet","strip.3":"Unbegrenzte Tierprofile","strip.4":"Freundlicher Support aus UK",
+  "how.eyebrow":"So funktioniert’s","how.title":"Ein robuster Anhänger mit smartem Service dahinter",
+  "how.lead":"Einmal anbringen – er arbeitet still im Hintergrund, bereit für den Tag, an dem jemand dein Tier nach Hause bringen muss.",
+  "how.tagT":"Der Anhänger","how.tagP":"Ein langlebiger QR-Anhänger am Halsband. Kein Akku, kein Laden, kein Koppeln – eine Handykamera genügt.",
+  "how.svcT":"Der Service","how.svcP":"Das Online-Profil deines Tieres plus sofortige SMS mit GPS-Koordinaten bei jedem Scan, damit du direkt hinfahren kannst.",
+  "f1.eyebrow":"Sofortige Standort-Alarme","f1.title":"Im Park gescannt, Sekunden später auf deinem Handy",
+  "f1.lead":"Sobald jemand den Anhänger scannt, schicken wir dir eine SMS mit den GPS-Koordinaten des Ortes.",
+  "f1.b1":"SMS in Echtzeit – ohne App","f1.b2":"Koordinaten direkt in der Karten-App öffnen","f1.b3":"Finder können dich direkt über das Profil kontaktieren",
+  "f2.eyebrow":"Tierprofile","f2.title":"Alles, was Finder zum Helfen brauchen",
+  "f2.lead":"Erstelle ein Profil, das die Persönlichkeit deines Tieres zeigt und Findern die richtigen Infos für seine Sicherheit gibt.",
+  "f2.b1":"Fotos, Notizen und Pflegehinweise","f2.b2":"Unbegrenzte Profile für alle Tiere im Haus","f2.b3":"Daten jederzeit und überall aktualisieren",
+  "f3.eyebrow":"Gemacht für lange Zeit","f3.title":"Anhänger, die jedes Matschabenteuer mitmachen",
+  "f3.lead":"Jeder Tag-Tails-Anhänger ist belastungsgetestet und langlebig garantiert. Und wenn dein Tier oft das Halsband verliert, hilft unser Ersatzanhänger-Programm.",
+  "f3.alt":"Smarte Tag-Tails-Anhänger auf einem Holztisch",
+  "grid.eyebrow":"In deinem Tarif enthalten","grid.title":"Kleiner Anhänger, große Beruhigung",
+  "grid.1t":"Unbegrenzte Profile","grid.1p":"Alle Tiere an einem sicheren Ort – ohne Limits und Zusatzkosten.",
+  "grid.2t":"Einrichtung in 60 Sekunden","grid.2p":"Scannen, klicken, fertig. Das Profil ist in unter einer Minute online.",
+  "grid.3t":"Personalisierung","grid.3p":"Fotos, Notizen und Pflegehinweise machen das Profil unverwechselbar.",
+  "grid.4t":"Ersatzanhänger","grid.4p":"Halsband beim Spaziergang verloren? Unser Programm schickt schnell einen neuen Anhänger.",
+  "grid.5t":"Datenschutz zuerst","grid.5p":"Du bestimmst, was im Profil steht. Deine Daten bleiben geschützt.",
+  "price.eyebrow":"Preise","price.title":"Einfache Preise – günstiger als ein Kaffee",
+  "price.lead":"Den Anhänger gibt’s gratis; Alarme und Profil laufen für eine kleine Monatsgebühr.",
+  "price.tagL":"Smarter Anhänger","price.t1":"Langlebiger, getesteter QR-Anhänger","price.t2":"Schnelle Lieferung","price.t3":"Eine persönliche Notiz für dein Tier",
+  "price.svcL":"Tag-Tails-Service","price.month":" / Monat",
+  "price.s1":"SMS-Alarme mit GPS-Standort","price.s2":"Unbegrenzte Tierprofile","price.s3":"Ersatzanhänger-Programm","price.s4":"Freundliches Support-Team",
+  "rev.eyebrow":"Bewertungen","rev.title":"Das sagen unsere Nutzer",
+  "rev.1t":"Endlich beruhigt","rev.1p":"„Wir sind gerade umgezogen und meine Katze schleicht sich ständig nach draußen. Mit dem Tag-Tails-Anhänger am Halsband weiß ich: Wenn sie rauskommt, hat sie gute Chancen, sicher heimzukehren. Unglaublich beruhigend.“",
+  "rev.2t":"Einfach und preiswert","rev.2p":"„Die Aktivierung war super einfach, und für 2,95 £ im Monat ist es günstiger als ein Kaffee. Das Ersatzanhänger-Programm ist Gold wert, mein Hund verliert ständig sein Halsband.“",
+  "rev.3t":"Toller Kundenservice","rev.3p":"„Bei der Einrichtung gab es ein kleines Problem, aber das Tag-Tails-Team war unglaublich freundlich und hat es schnell gelöst. Mein Hund ist jetzt geschützt und ich fühle mich viel sicherer.“",
+  "rev.4t":"Schnell, süß und wirksam","rev.4p":"„Schnelle Lieferung und eine nette persönliche Notiz für mein Tier. Eine geniale Idee, die ohne Aufwand für extra Sicherheit sorgt.“",
+  "mission.eyebrow":"Unsere Mission","mission.title":"Verlorene Tiere schneller nach Hause bringen",
+  "mission.p":"Bei Tag-Tails bringen wir verlorene Haustiere mit smarten QR-Anhängern zurück zu ihren Menschen. Unser Ziel ist Beruhigung: Tiere, die schnell identifizierbar und auffindbar sind – sicher, zuverlässig und einfach für Tierhalter überall.",
+  "final.title":"Schenk deinem Tier den Weg nach Hause","final.p":"Dein Gratis-Anhänger ist nur einen Klick entfernt. Die Einrichtung dauert keine Minute.",
+  "foot.about":"Smarte QR-Anhänger, die verlorene Tiere wieder mit ihren Menschen zusammenbringen.",
+  "foot.product":"Produkt","foot.company":"Unternehmen","foot.legal":"Rechtliches","foot.terms":"AGB","foot.privacy":"Datenschutz",
+  "mock.smsT":"Orlas Anhänger wurde gescannt!","mock.smsP":"Jemand hat Orla gerade gefunden und ihr Profil geöffnet.","mock.smsLoc":"Scan-Standort:",
+  "mock.safe":"Geschützt","mock.meta":"Cocker Spaniel · 3 Jahre","mock.row1":"Nur getreidefreies Futter","mock.row2":"Morgens eine Allergietablette","mock.row3":"Lieb, bei Männern etwas schüchtern","mock.call":"Besitzer kontaktieren"
+},
+"it": { _name:"Italiano",
+  "nav.features":"Funzioni","nav.pricing":"Prezzi","nav.reviews":"Recensioni","nav.about":"Chi siamo","nav.signin":"Accedi",
+  "cta.free":"Ricevi la medaglietta gratis","cta.how":"Come funziona",
+  "hero.eyebrow":"Medagliette QR smart per animali",
+  "hero.title":"Se si allontana, <span class=\"hl\">saprai dov’è</span>.",
+  "hero.lead":"Chi trova il tuo animale scansiona la medaglietta Tag-Tails con la fotocamera del telefono. Vede il suo profilo e tu ricevi un SMS con il punto esatto del ritrovamento.",
+  "hero.note":"Medaglietta <b>gratis</b> · servizio a soli <b>2,95 £ al mese</b>",
+  "hero.alt":"La cagnolina Orla con la sua medaglietta Tag-Tails",
+  "hero.float1a":"Medaglietta appena scansionata","hero.float1b":"Posizione inviata al telefono",
+  "hero.float2a":"Nessuna app necessaria","hero.float2b":"Basta una fotocamera qualsiasi",
+  "strip.1":"Medagliette testate in resistenza","strip.2":"Pronta in meno di 60 secondi","strip.3":"Profili illimitati","strip.4":"Assistenza gentile dal Regno Unito",
+  "how.eyebrow":"Come funziona","how.title":"Una medaglietta robusta con un servizio smart alle spalle",
+  "how.lead":"La agganci una volta e lavora in silenzio, pronta per il giorno in cui qualcuno dovrà riportare a casa il tuo animale.",
+  "how.tagT":"La medaglietta","how.tagP":"Una medaglietta QR resistente da collare. Niente batteria, niente ricarica, niente abbinamenti: basta la fotocamera di un telefono.",
+  "how.svcT":"Il servizio","how.svcP":"Il profilo online del tuo animale e avvisi SMS istantanei con coordinate GPS a ogni scansione, così vai dritto sul posto.",
+  "f1.eyebrow":"Avvisi di posizione istantanei","f1.title":"Scansionata al parco, sul tuo telefono in pochi secondi",
+  "f1.lead":"Appena qualcuno scansiona la medaglietta, ti inviamo un SMS con le coordinate GPS del luogo.",
+  "f1.b1":"SMS in tempo reale, senza aprire app","f1.b2":"Coordinate da aprire subito nelle mappe","f1.b3":"Chi la trova può contattarti dal profilo",
+  "f2.eyebrow":"Profili degli animali","f2.title":"Tutto ciò che serve a chi lo trova",
+  "f2.lead":"Crea un profilo che mostri la personalità del tuo animale e dia le informazioni giuste per tenerlo al sicuro.",
+  "f2.b1":"Foto, note e istruzioni di cura","f2.b2":"Profili illimitati per tutti i tuoi animali","f2.b3":"Aggiorna i dati quando vuoi, ovunque tu sia",
+  "f3.eyebrow":"Fatte per durare","f3.title":"Medagliette all’altezza di ogni avventura nel fango",
+  "f3.lead":"Ogni medaglietta Tag-Tails è testata in resistenza e garantita nel tempo. E se il tuo animale perde spesso il collare, c’è il nostro programma di sostituzione.",
+  "f3.alt":"Medagliette smart Tag-Tails su un tavolo di legno",
+  "grid.eyebrow":"Incluso nel tuo piano","grid.title":"Piccola medaglietta, tanta tranquillità",
+  "grid.1t":"Profili illimitati","grid.1p":"Tutti i tuoi animali in un unico posto sicuro, senza limiti né costi extra.",
+  "grid.2t":"Configurazione in 60 secondi","grid.2p":"Scansiona, clicca, fatto. Il profilo è online in meno di un minuto.",
+  "grid.3t":"Personalizzazione","grid.3p":"Foto, note e istruzioni che rendono il profilo inconfondibile.",
+  "grid.4t":"Medagliette sostitutive","grid.4p":"Collare perso durante la passeggiata? Il nostro programma ti manda subito una nuova medaglietta.",
+  "grid.5t":"Privacy al primo posto","grid.5p":"Decidi tu cosa compare nel profilo. I tuoi dati restano protetti.",
+  "price.eyebrow":"Prezzi","price.title":"Prezzi semplici, meno di un caffè",
+  "price.lead":"La medaglietta è gratis; avvisi e profilo restano attivi con un piccolo canone mensile.",
+  "price.tagL":"Medaglietta smart","price.t1":"Medaglietta QR resistente e testata","price.t2":"Spedizione rapida","price.t3":"Un biglietto personalizzato per il tuo animale",
+  "price.svcL":"Servizio Tag-Tails","price.month":" / mese",
+  "price.s1":"Avvisi SMS con posizione GPS","price.s2":"Profili illimitati","price.s3":"Programma di sostituzione","price.s4":"Team di assistenza gentile",
+  "rev.eyebrow":"Recensioni","rev.title":"Cosa dicono i nostri utenti",
+  "rev.1t":"Finalmente tranquilla","rev.1p":"«Mi sono appena trasferita e la mia gatta continua a sgattaiolare fuori. Con la medaglietta Tag-Tails al collare so che, se esce, ha buone probabilità di tornare a casa sana e salva. Mi rassicura tantissimo.»",
+  "rev.2t":"Semplice e conveniente","rev.2p":"«L’attivazione è stata semplicissima e, a 2,95 £ al mese, costa meno di un caffè. Il programma di sostituzione è una salvezza, il mio cane perde il collare a ogni passeggiata.»",
+  "rev.3t":"Assistenza fantastica","rev.3p":"«Ho avuto un piccolo intoppo nella configurazione, ma il team Tag-Tails è stato gentilissimo e l’ha risolto subito. Il mio cucciolo ora è protetto e mi sento molto più sicura.»",
+  "rev.4t":"Veloce, carina ed efficace","rev.4p":"«Spedizione veloce e un bel bigliettino personalizzato per il mio animale. Un’idea geniale che dà sicurezza in più senza complicazioni.»",
+  "mission.eyebrow":"La nostra missione","mission.title":"Riportare a casa prima gli animali smarriti",
+  "mission.p":"In Tag-Tails riuniamo gli animali smarriti ai loro proprietari grazie a medagliette smart con tecnologia QR. Il nostro obiettivo è la tranquillità: animali facili da identificare e rintracciare, con sicurezza, affidabilità e semplicità per tutti.",
+  "final.title":"Dai al tuo animale la strada di casa","final.p":"La tua medaglietta gratuita è a un clic. La configurazione richiede meno di un minuto.",
+  "foot.about":"Medagliette QR smart che aiutano gli animali smarriti a ritrovare chi li ama.",
+  "foot.product":"Prodotto","foot.company":"Azienda","foot.legal":"Note legali","foot.terms":"Termini e condizioni","foot.privacy":"Privacy",
+  "mock.smsT":"La medaglietta di Orla è stata scansionata!","mock.smsP":"Qualcuno ha appena trovato Orla e ha aperto il suo profilo.","mock.smsLoc":"Luogo della scansione:",
+  "mock.safe":"Protetta","mock.meta":"Cocker spaniel · 3 anni","mock.row1":"Solo cibo senza cereali","mock.row2":"Pastiglia per l’allergia ogni mattina","mock.row3":"Affettuosa, un po’ timida con gli uomini","mock.call":"Contatta il proprietario"
+},
+"pt": { _name:"Português",
+  "nav.features":"Funcionalidades","nav.pricing":"Preços","nav.reviews":"Opiniões","nav.about":"Sobre nós","nav.signin":"Entrar",
+  "cta.free":"Obter a minha placa grátis","cta.how":"Como funciona",
+  "hero.eyebrow":"Placas QR inteligentes para animais",
+  "hero.title":"Se ele fugir, <span class=\"hl\">vais saber onde está</span>.",
+  "hero.lead":"Quem encontrar o teu animal digitaliza a placa Tag-Tails com a câmara do telemóvel. Vê o perfil dele e tu recebes um SMS com o local exato onde foi encontrado.",
+  "hero.note":"Placa <b>grátis</b> · serviço por apenas <b>2,95 £ por mês</b>",
+  "hero.alt":"A cadela Orla com a sua placa Tag-Tails",
+  "hero.float1a":"Placa digitalizada agora","hero.float1b":"Localização enviada para o telemóvel",
+  "hero.float2a":"Sem apps","hero.float2b":"Funciona com qualquer câmara",
+  "strip.1":"Placas testadas em resistência","strip.2":"Pronta em menos de 60 segundos","strip.3":"Perfis ilimitados","strip.4":"Apoio simpático no Reino Unido",
+  "how.eyebrow":"Como funciona","how.title":"Uma placa resistente com um serviço inteligente por trás",
+  "how.lead":"Coloca-a uma vez e ela trabalha em silêncio, pronta para o dia em que alguém precisar de levar o teu animal a casa.",
+  "how.tagT":"A placa","how.tagP":"Uma placa QR duradoura para a coleira. Sem bateria, sem carregamentos, sem emparelhar: basta a câmara de um telemóvel.",
+  "how.svcT":"O serviço","how.svcP":"O perfil online do teu animal e alertas SMS imediatos com coordenadas GPS sempre que a placa é digitalizada, para ires direto ao local.",
+  "f1.eyebrow":"Alertas de localização imediatos","f1.title":"Digitalizada no parque, no teu telemóvel em segundos",
+  "f1.lead":"Assim que alguém digitaliza a placa, enviamos-te um SMS com as coordenadas GPS do local.",
+  "f1.b1":"SMS em tempo real, sem abrir apps","f1.b2":"Coordenadas para abrir logo nos mapas","f1.b3":"Quem encontra pode contactar-te a partir do perfil",
+  "f2.eyebrow":"Perfis de animais","f2.title":"Tudo o que quem encontra precisa para ajudar",
+  "f2.lead":"Cria um perfil que mostra a personalidade do teu animal e dá a informação certa para o manter seguro.",
+  "f2.b1":"Fotos, notas e instruções de cuidados","f2.b2":"Perfis ilimitados para todos os teus animais","f2.b3":"Atualiza os dados quando quiseres, onde estiveres",
+  "f3.eyebrow":"Feitas para durar","f3.title":"Placas à altura de todas as aventuras com lama",
+  "f3.lead":"Todas as placas Tag-Tails são testadas em resistência e têm durabilidade garantida. E se o teu animal perde muitas vezes a coleira, o nosso programa de substituição resolve.",
+  "f3.alt":"Placas inteligentes Tag-Tails sobre uma mesa de madeira",
+  "grid.eyebrow":"Incluído no teu plano","grid.title":"Placa pequena, muita tranquilidade",
+  "grid.1t":"Perfis ilimitados","grid.1p":"Todos os teus animais num só lugar seguro, sem limites nem custos extra.",
+  "grid.2t":"Configuração em 60 segundos","grid.2p":"Digitaliza, clica e pronto. O perfil fica ativo em menos de um minuto.",
+  "grid.3t":"Personalização","grid.3p":"Fotos, notas e instruções que tornam o perfil inconfundível.",
+  "grid.4t":"Placas de substituição","grid.4p":"Perdeu a coleira no passeio? O nosso programa envia-te rapidamente uma nova placa.",
+  "grid.5t":"Privacidade primeiro","grid.5p":"Tu decides o que aparece no perfil. Os teus dados ficam protegidos.",
+  "price.eyebrow":"Preços","price.title":"Preço simples, menos do que um café",
+  "price.lead":"A placa é grátis; os alertas e o perfil ficam ativos por uma pequena mensalidade.",
+  "price.tagL":"Placa inteligente","price.t1":"Placa QR duradoura e testada","price.t2":"Entrega rápida","price.t3":"Uma nota personalizada para o teu animal",
+  "price.svcL":"Serviço Tag-Tails","price.month":" / mês",
+  "price.s1":"Alertas SMS com localização GPS","price.s2":"Perfis ilimitados","price.s3":"Programa de substituição","price.s4":"Equipa de apoio simpática",
+  "rev.eyebrow":"Opiniões","rev.title":"O que dizem os nossos utilizadores",
+  "rev.1t":"Finalmente descansada","rev.1p":"«Acabei de mudar de casa e a minha gata está sempre a fugir para explorar. Com a placa Tag-Tails na coleira sei que, se sair, tem boas hipóteses de voltar a casa em segurança. É muito tranquilizador.»",
+  "rev.2t":"Simples e com ótimo preço","rev.2p":"«A ativação foi muito simples e, a 2,95 £ por mês, custa menos do que um café. O programa de substituição é uma salvação, o meu cão perde a coleira em todos os passeios.»",
+  "rev.3t":"Apoio ao cliente fantástico","rev.3p":"«Tive um pequeno problema na configuração, mas a equipa da Tag-Tails foi super simpática e resolveu tudo depressa. O meu cão está protegido e sinto-me muito mais segura.»",
+  "rev.4t":"Rápido, giro e eficaz","rev.4p":"«Entrega rápida e uma notinha personalizada para o meu animal que adorei. Uma ideia brilhante que dá segurança extra sem complicações.»",
+  "mission.eyebrow":"A nossa missão","mission.title":"Levar mais depressa a casa os animais perdidos",
+  "mission.p":"Na Tag-Tails dedicamo-nos a reunir animais perdidos com os seus donos através de placas inteligentes com tecnologia QR. O nosso objetivo é a tranquilidade: animais fáceis de identificar e localizar, com segurança, fiabilidade e simplicidade para todos.",
+  "final.title":"Dá ao teu animal o caminho de volta a casa","final.p":"A tua placa grátis está a um clique. A configuração demora menos de um minuto.",
+  "foot.about":"Placas QR inteligentes que ajudam os animais perdidos a reencontrar quem os ama.",
+  "foot.product":"Produto","foot.company":"Empresa","foot.legal":"Legal","foot.terms":"Termos e condições","foot.privacy":"Política de privacidade",
+  "mock.smsT":"A placa da Orla foi digitalizada!","mock.smsP":"Alguém acabou de encontrar a Orla e abriu o perfil dela.","mock.smsLoc":"Local da leitura:",
+  "mock.safe":"Protegida","mock.meta":"Cocker spaniel · 3 anos","mock.row1":"Só ração sem cereais","mock.row2":"Comprimido da alergia de manhã","mock.row3":"Meiga, um pouco tímida com homens","mock.call":"Contactar o dono"
+}
+};
+
+const DEFAULT = "en-GB";
+const LS_KEY = "tagtails-lang";
+
+function pickLang(){
+  try { const saved = localStorage.getItem(LS_KEY); if (saved && I18N[saved]) return saved; } catch(e){}
+  const prefs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || DEFAULT];
+  for (const p of prefs){
+    const base = String(p).toLowerCase().split("-")[0];
+    if (base === "en") return DEFAULT;          // any English → British English
+    if (I18N[base]) return base;
+  }
+  return DEFAULT;
+}
+
+function applyLang(lang){
+  const d = I18N[lang] || I18N[DEFAULT], en = I18N[DEFAULT];
+  const t = k => d[k] ?? en[k] ?? "";
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(el => el.textContent = t(el.dataset.i18n));
+  document.querySelectorAll("[data-i18n-html]").forEach(el => el.innerHTML = t(el.dataset.i18nHtml));
+  document.querySelectorAll("[data-i18n-alt]").forEach(el => el.alt = t(el.dataset.i18nAlt));
+  document.getElementById("langSel").value = lang;
+}
+
+const sel = document.getElementById("langSel");
+Object.keys(I18N).forEach(k => sel.add(new Option(I18N[k]._name, k)));
+sel.addEventListener("change", () => {
+  try { localStorage.setItem(LS_KEY, sel.value); } catch(e){}
+  applyLang(sel.value);
+});
+document.getElementById("year").textContent = new Date().getFullYear();
+applyLang(pickLang());
+</script>
+</body>
+</html>
